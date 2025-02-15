@@ -209,10 +209,15 @@ datadir = @datadir@
 
 # Use git revision if this is a cloned repo;  otherwise get the revision
 # from the VERSION file in the directory above.
+# Get the timestamp of the open_pdks commit to use for stamping layouts.
 GITREV = $(shell git describe --long)
 ifeq (${GITREV},)
     REVISION = $(shell cat ../VERSION)
+    OPEN_PDKS_TIMESTAMP := $(shell date +%s)
+    TIMESTAMP_OPT = -timestamp ${OPEN_PKDS_TIMESTAMP}
 else
+    OPEN_PDKS_TIMESTAMP = $(shell git log -1 --format="%ad" --date=raw | cut -d' ' -f1)
+    TIMESTAMP_OPT = -timestamp ${OPEN_PDKS_TIMESTAMP}
     REVISION = ${GITREV}
 endif
 TECH = sky130
@@ -361,9 +366,7 @@ SKY130B_DEFS += -DRERAM
 SKY130A_DEFS += -DSTAGING_PATH=${STAGING_PATH}
 SKY130B_DEFS += -DSTAGING_PATH=${STAGING_PATH}
 
-# Get the timestamp of the open_pdks commit to use for stamping layouts.
-OPEN_PDKS_TIMESTAMP = $(shell git log -1 --format="%ad" --date=raw | cut -d' ' -f1)
-TIMESTAMP_OPT = -timestamp ${OPEN_PDKS_TIMESTAMP}
+
 
 # Record commit numbers for the nodeinfo.json file
 OPEN_PDKS_COMMIT = $(shell git rev-parse HEAD)
