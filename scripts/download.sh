@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # download.sh --
 #	Download a tarball from the specified URL to the specified target

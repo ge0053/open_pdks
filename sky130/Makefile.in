@@ -193,7 +193,7 @@
 #
 #--------------------------------------------------------------------
 # This Makefile contains bash-isms
-SHELL := /bin/bash
+SHELL := $(shell which bash)
 export SHELL
 # We use pipes to save output to files, without pipefail they will always be
 # seen by make as having succeeded.

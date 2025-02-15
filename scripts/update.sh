@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # update.sh --
 #	Update a package in sources/.  If the package is a git
